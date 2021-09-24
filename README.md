@@ -9,11 +9,13 @@ See [homepage](https://unattach.app/) for more info.
   * tl;dr: Your personal data flows only between Google servers and your computer.
 
 ## Dependencies
-* Install [Java 16](https://www.oracle.com/java/technologies/javase-downloads.html).
+* Install [Java 16](https://www.oracle.com/java/technologies/javase-downloads.html). `sudo apt install openjdk-16-jdk`
 * Install [Maven](https://maven.apache.org/download.cgi).
 
 ## Build & Run
-* Build with `mvn clean package`.
+* export JAVA_HOME=/usr/lib/jvm/jdk-16.0.2/ && echo $JAVA_HOME
+* export PATH=$PATH:$JAVA_HOME
+* Build with `mvn clean package -e`.
 * Run with `java -jar target/client-3.3.0-jar-with-dependencies.jar`.
 
 ## Known Limitations
