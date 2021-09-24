@@ -13,8 +13,8 @@ See [homepage](https://unattach.app/) for more info.
 * Install [Maven](https://maven.apache.org/download.cgi).
 
 ## Build & Run
-* export JAVA_HOME=/usr/lib/jvm/jdk-16.0.2/ && echo $JAVA_HOME
-* export PATH=$PATH:$JAVA_HOME
+* `export JAVA_HOME=/usr/lib/jvm/jdk-16.0.2/ && echo $JAVA_HOME`
+* `export PATH=$PATH:$JAVA_HOME`
 * Build with `mvn clean package -e`.
 * Run with `java -jar target/client-3.3.0-jar-with-dependencies.jar`.
 
