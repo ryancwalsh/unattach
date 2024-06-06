@@ -11,12 +11,18 @@ public class GetEmailMetadataTask implements LongTask<GetEmailMetadataTask.Resul
     void getEmailMetadata(int startIndexInclusive, int endIndexExclusive) throws GmailServiceException;
   }
 
-  public static record Result(int currentBatchNumber) {}
+  public static record Result(int currentBatchNumber) {
+  }
 
   private final List<String> emailIds;
   // (maximum batch size = 100)
   // batch size = 40 ==> batch quota units = 200 ==> 1 batch / second
-  private final int batchSize = 40;
+  // https://cloud.google.com/api-keys/docs/quotas says 240 reads per min and 120
+  // writes per min.
+  // https://developers.google.com/gmail/api/reference/quota
+  // https://console.cloud.google.com/apis/api/gmail.googleapis.com/quotas?project=walsh-unattach-gmail
+  // https://console.cloud.google.com/iam-admin/quotas?project=walsh-unattach-gmail&pageState=(%22allQuotasTable%22:(%22s%22:%5B(%22i%22:%22currentUsage%22,%22s%22:%220%22),(%22i%22:%22currentPercent%22,%22s%22:%220%22),(%22i%22:%22sevenDayPeakPercent%22,%22s%22:%220%22),(%22i%22:%22sevenDayPeakUsage%22,%22s%22:%220%22),(%22i%22:%22serviceTitle%22,%22s%22:%220%22),(%22i%22:%22displayName%22,%22s%22:%220%22),(%22i%22:%22displayDimensions%22,%22s%22:%220%22)%5D,%22f%22:%22%255B%255D%22))
+  private final int batchSize = 25;
   private final int numberOfBatches;
   private final Worker worker;
   private int currentBatchNumber;
@@ -41,8 +47,11 @@ public class GetEmailMetadataTask implements LongTask<GetEmailMetadataTask.Resul
   public Result takeStep() throws LongTaskException {
     try {
       if (currentBatchNumber != 0) {
-        Thread.sleep(1000);
+        final int sleepDurationMs = 10_000;
+        System.out.println("sleepDurationMs " + sleepDurationMs);
+        Thread.sleep(sleepDurationMs);
       }
+      System.out.println("takeStep " + currentBatchNumber);
       final int startIndexInclusive = currentBatchNumber * batchSize;
       final int endIndexExclusive = Math.min(emailIds.size(), (currentBatchNumber + 1) * batchSize);
       worker.getEmailMetadata(startIndexInclusive, endIndexExclusive);
