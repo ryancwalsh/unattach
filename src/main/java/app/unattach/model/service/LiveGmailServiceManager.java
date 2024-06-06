@@ -63,6 +63,8 @@ public class LiveGmailServiceManager implements GmailServiceManager {
   }
 
   private Credential authorize() throws IOException {
+    // TODO: Consider changing this to pull from `/private_credentials.json`
+    // instead.
     try (InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream("/credentials.json"))) {
       GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, reader);
 
