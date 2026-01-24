@@ -23,7 +23,7 @@ unattach.log*
 tmp
 *.zip
 Unattach.app
-src/main/resources/private_credentials.json
+src/main/resources/credentials_private.json
 
 
 apache-maven-3.9.7/
