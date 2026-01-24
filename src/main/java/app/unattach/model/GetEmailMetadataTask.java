@@ -47,7 +47,10 @@ public class GetEmailMetadataTask implements LongTask<GetEmailMetadataTask.Resul
   public Result takeStep() throws LongTaskException {
     try {
       if (currentBatchNumber != 0) {
-        final int sleepDurationMs = 15_000;
+        final int sleepDurationMs = Integer.parseInt(System.getProperty("sleepDurationMs", "15000")); // java
+                                                                                                      // -DsleepDurationMs=30000
+                                                                                                      // -jar
+                                                                                                      // target/client-3.3.0-jar-with-dependencies.jar
         System.out.println("sleepDurationMs " + sleepDurationMs);
         Thread.sleep(sleepDurationMs);
       }
