@@ -20,7 +20,7 @@ See [homepage](https://unattach.app/) for more info.
 # Build
 ./apache-maven-3.9.7/bin/mvn clean package
 # Run
-java -DsleepDurationMs=30000 -jar target/client-3.3.0-jar-with-dependencies.jar
+java -DsleepDurationMs=60000 -jar target/client-3.3.0-jar-with-dependencies.jar
 ```
 
 ## Known Limitations
